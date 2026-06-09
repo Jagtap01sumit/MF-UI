@@ -8,6 +8,5 @@ export async function GET(req, { params }) {
     "SELECT * FROM schemes WHERE amc_id = $1",
     [amcId]
   );
-  console.log(result);
-  return Response.json(result);
+  return Response.json(result.rows);
 }

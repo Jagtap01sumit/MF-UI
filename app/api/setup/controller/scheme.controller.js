@@ -1,4 +1,4 @@
-import { fetchTopHoldings,fetchTopIncreases,fetchTopReduction,fetchNewEntries ,fetchFullyExitEntries,fetchSectorWiseAllocationEntries} from "../../setup/services/scheme.services";
+import { fetchTopHoldings,fetchTopIncreases,fetchTopReduction,fetchNewEntries ,fetchFullyExitEntries,fetchSectorWiseAllocationEntries,fetchMonthlyTrendInScheme} from "../../setup/services/scheme.services";
 
 export async function GetTopHoldingsController(schemeId) {
   try {
@@ -51,7 +51,7 @@ export async function GetReductionInSchemeController(schemeId) {
 export async function GetFullyExitsFromSchemeController(schemeId) {
   try {
     const data = await fetchFullyExitEntries(schemeId);
-    console.log(data)
+    // console.log(data)
     return Response.json(data);
   } catch (error) {
     return Response.json(
@@ -63,7 +63,19 @@ export async function GetFullyExitsFromSchemeController(schemeId) {
 export async function GetSectorWiseAllocationInSchemeController(schemeId) {
   try {
     const data = await fetchSectorWiseAllocationEntries(schemeId);
-    console.log(data)
+    // console.log(data)
+    return Response.json(data);
+  } catch (error) {
+    return Response.json(
+      { error: error.message },
+      { status: 500 }
+    );
+  }
+}
+export async function GetMonthlyTrendInSchemeController(schemeId) {
+  try {
+    const data = await fetchMonthlyTrendInScheme(schemeId);
+    // console.log(data)
     return Response.json(data);
   } catch (error) {
     return Response.json(

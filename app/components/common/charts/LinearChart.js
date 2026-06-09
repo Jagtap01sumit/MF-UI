@@ -1,39 +1,29 @@
-"use client";
-
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from "recharts";
-
-export default function CommonLineChart({
-  data,
-  xKey,
-  dataKey,
-}) {
+export default function ChartCard({ title, children, theme }) {
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <LineChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
+    <div
+      className="
+        w-full
+        rounded-2xl
+        p-4 md:p-5
+        shadow-sm
+      "
+      style={{
+        background: theme.card,
+        border: `1px solid ${theme.border}`,
+      }}
+    >
+      {/* Header */}
+      <h2
+        className="text-sm md:text-base font-semibold mb-4"
+        style={{ color: theme.text.primary }}
+      >
+        {title}
+      </h2>
 
-        <XAxis dataKey={xKey} />
-
-        <YAxis />
-
-        <Tooltip />
-
-        <Line
-          type="monotone"
-          dataKey={dataKey}
-          strokeWidth={3}
-          dot={{ r: 6 }}
-          activeDot={{ r: 8 }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+      {/* Chart content */}
+      <div className="w-full h-[300px]">
+        {children}
+      </div>
+    </div>
   );
 }
