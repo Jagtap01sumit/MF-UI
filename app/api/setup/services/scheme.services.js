@@ -1,4 +1,4 @@
-import { getTopHoldingsForScheme ,getTopIncreasesInScheme,getTopReductionInScheme,getNewEntriesInScheme,getFullyExitsFromScheme,getSectorWiseAllocationInScheme} from "../../setup/reositories/scheme.repository";
+import { getTopHoldingsForScheme ,getTopIncreasesInScheme,getTopReductionInScheme,getNewEntriesInScheme,getFullyExitsFromScheme,getSectorWiseAllocationInScheme,getMonthlyTrendInScheme} from "../../setup/reositories/scheme.repository";
 
 export async function fetchTopHoldings(schemeId) {
   if (!schemeId) {
@@ -42,4 +42,11 @@ export async function fetchSectorWiseAllocationEntries(schemeId) {
   }
 
   return await getSectorWiseAllocationInScheme(schemeId);
+}
+export async function fetchMonthlyTrendInScheme(schemeId) {
+  if (!schemeId) {
+    throw new Error("Scheme ID is required");
+  }
+
+  return await getMonthlyTrendInScheme(schemeId);
 }

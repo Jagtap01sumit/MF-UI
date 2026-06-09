@@ -37,3 +37,51 @@ Database
 | 3 | **Service**    | Contains business logic and application rules.                                                   |
 | 4 | **Repository** | Handles database access and SQL queries only.                                                    |
 | 5 | **Database**   | Stores and retrieves actual data.                                                                |
+
+
+GET /api/amcs/1/dashboard
+
+GET /api/amcs/1/top-holdings
+
+GET /api/amcs/1/top-increases
+
+GET /api/amcs/1/top-reductions
+
+GET /api/amcs/1/new-entries
+
+GET /api/amcs/1/exits
+
+GET /api/amcs/1/sector-allocation
+
+GET /api/amcs/1/monthly-trend
+
+
+components/
+│
+├── filters/
+│   ├── AmcDropdown.jsx
+│   ├── SchemeDropdown.jsx
+│   └── FilterBar.jsx
+│
+├── cards/
+│   ├── MetricCard.jsx
+│   └── SummaryCards.jsx
+│
+├── charts/
+│   ├── MonthlyTrendChart.jsx
+│   └── SectorAllocationChart.jsx
+│
+├── tables/
+│   ├── TopHoldingsTable.jsx
+│   ├── TopIncreasesTable.jsx
+│   ├── TopReductionsTable.jsx
+│   ├── NewEntriesTable.jsx
+│   └── ExitsTable.jsx
+│
+├── common/
+│   ├── Loader.jsx
+│   ├── ErrorState.jsx
+│   └── EmptyState.jsx
+│
+└── dashboard/
+    └── DashboardContent.jsx
