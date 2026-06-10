@@ -4,7 +4,7 @@ import { create } from "zustand";
 
 const useFundStore = create((set) => ({
   isSidebarOpen: false,
-  isDarkMode: false,
+  isDarkMode: true,
 // BASEURL:String(process.env.BASEURL),
   setSidebarOpen: (value) => set({ isSidebarOpen: value }),
 
