@@ -1,20 +1,20 @@
-"use client";
-
+"use client"
 import Sidebar from "@/app/components/common/Sidebar";
 import { sidebarItems } from "@/app/config/Sidebar";
-import KpiSection from "@/app/sections/KpiSection";
 import Filter from "@/app/sections/Filter";
-import { getTheme } from "@/app/CONSTANTS/Theme";
-import AllocationSection from "@/app/sections/AllocationSection";
-
+import Header from "@/app/sections/Header";
+import useTheme from "@/app/hook/useTheme";
+import TablesSection from "@/app/sections/TablesSection";
+import Dashboard from "@/app/sections/Dashboard";
+import useFundStore from "@/app/store/useFundStore";
 export default function Home() {
-    const theme = getTheme(true);
+  const theme = useTheme();
+  const { isSidebarOpen } = useFundStore();
 
   return (
     <div className="h-screen flex overflow-hidden">
-      
       {/* Sidebar */}
-      <Sidebar menuItems={sidebarItems} />
+      <Sidebar menuItems={sidebarItems} theme={theme} />
 
       {/* Right scrollable section */}
       <main
@@ -23,13 +23,11 @@ export default function Home() {
           background: theme.background,
         }}
       >
+        {!isSidebarOpen ? <Header /> : null}
         <Filter />
 
-        <div>
-          <KpiSection />
-          <AllocationSection theme={theme} />
-          <AllocationSection theme={theme} />
-        </div>
+       <Dashboard theme={theme}/>
+       <TablesSection/>
       </main>
     </div>
   );
