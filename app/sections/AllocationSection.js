@@ -6,10 +6,10 @@ import MonthlyTrendChart from "../components/common/charts/MonthlyTreadChart";
 import SectorDonutChart from "../components/common/charts/DountChart";
 import useFundStore from "@/app/store/useFundStore";
 
-export default function AllocationSection({ theme }) {
+export default function AllocationSection({theme}) {
   const { sectorAllocation, monthlyTrend } = useFundStore();
+ 
 
-  // Monthly Trend Data
   const trendsData = monthlyTrend.map((item) => ({
     month: item[FIELDS.REPORT_MONTH]?.substring(5, 10),
     value: Number(item[FIELDS.TOTAL_MARKET_VALUE]),

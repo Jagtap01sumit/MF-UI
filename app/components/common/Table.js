@@ -1,50 +1,120 @@
-export default function Table({
+"use client";
+
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@mui/material";
+
+import useTheme from "@/app/hook/useTheme";
+
+export default function DataTableCard({
+  title,
   columns,
   data,
+  onViewMore,
 }) {
+  const theme = useTheme();
+
+  const rows = [...data];
+
+  while (rows.length < 5) {
+    const emptyRow = {};
+
+    columns.forEach((col) => {
+      emptyRow[col.key] = "-";
+    });
+
+    rows.push(emptyRow);
+  }
+
   return (
-    <table className="w-full">
+    <Card
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        background: theme.card,
+        border: `1px solid ${theme.border}`,
+        borderRadius: "16px",
+        boxShadow: "none",
+      }}
+    >
+      <CardContent
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <Typography
+            variant="h6"
+            sx={{
+              color: theme.text.primary,
+              fontWeight: 600,
+            }}
+          >
+            {title}
+          </Typography>
 
-      <thead>
+          {/* Mobile */}
+          <Button
+            size="small"
+            onClick={onViewMore}
+            className="md:hidden"
+          >
+            View More
+          </Button>
+        </div>
 
-        <tr>
+        {/* Table */}
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              {columns.map((col) => (
+                <TableCell
+                  key={col.key}
+                  sx={{
+                    color: theme.text.secondary,
+                    fontWeight: 600,
+                    borderBottom: `1px solid ${theme.border}`,
+                  }}
+                >
+                  {col.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
 
-          {columns.map((col) => (
-            <th
-              key={col.key}
-              className="text-left border-b py-3"
-            >
-              {col.title}
-            </th>
-          ))}
-
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-        {data.map((row, index) => (
-
-          <tr key={index}>
-
-            {columns.map((col) => (
-
-              <td
-                key={col.key}
-                className="py-3 border-b"
-              >
-                {row[col.key]}
-              </td>
-
+          <TableBody>
+            {rows.slice(0, 5).map((row, index) => (
+              <TableRow key={index}>
+                {columns.map((col) => (
+                  <TableCell
+                    key={col.key}
+                    sx={{
+                      color: theme.text.primary,
+                      borderBottom: `1px solid ${theme.border}`,
+                    }}
+                  >
+                    {row[col.key]}
+                  </TableCell>
+                ))}
+              </TableRow>
             ))}
+          </TableBody>
+        </Table>
 
-          </tr>
-
-        ))}
-
-      </tbody>
-
-    </table>
+   
+      </CardContent>
+    </Card>
   );
 }

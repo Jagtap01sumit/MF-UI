@@ -22,6 +22,7 @@ export default function KpiCard({
         md:justify-between
         gap-4
        flex-col-reverse
+       md:mt-2 mt-1
       "
       style={{
         background: theme.card,

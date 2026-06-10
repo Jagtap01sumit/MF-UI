@@ -19,8 +19,8 @@ export default function SectorDonutChart({ data, theme }) {
               data={data}
               dataKey="value"
               nameKey="name"
-              innerRadius={70}
-              outerRadius={100}
+              innerRadius={50}
+              outerRadius={80}
               paddingAngle={3}
             >
               {data.map((entry, index) => (

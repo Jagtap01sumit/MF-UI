@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ListItemPrefix } from "@material-tailwind/react";
-import { getTheme } from "@/app/CONSTANTS/Theme";
 
-export default function Sidebar({ menuItems }) {
-  const [open, setOpen] = useState(false);
+import CustomizedSwitches from "@/app/components/common/Toggle";
+import useFundStore from "@/app/store/useFundStore";
 
-  const isDark = true;
-  const theme = getTheme(isDark);
+export default function Sidebar({ menuItems, theme }) {
+  const { isSidebarOpen, toggleSidebar } = useFundStore();
+
+  console.log(isSidebarOpen);
 
   return (
     <>
       {/* Mobile Burger */}
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => toggleSidebar()}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg shadow-lg"
         style={{
           background: theme.sidebar,
@@ -27,11 +27,11 @@ export default function Sidebar({ menuItems }) {
       </button>
 
       {/* Mobile Sidebar */}
-      {open && (
+      {isSidebarOpen && (
         <>
           <div
             className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setOpen(false)}
+            onClick={() => toggleSidebar()}
           />
 
           <div
@@ -50,9 +50,7 @@ export default function Sidebar({ menuItems }) {
               }}
             >
               <div>
-                <h2 className="font-bold text-xl">
-                  MF Analytics
-                </h2>
+                <h2 className="font-bold text-xl">MF Analytics</h2>
 
                 <p
                   className="text-sm"
@@ -64,7 +62,7 @@ export default function Sidebar({ menuItems }) {
                 </p>
               </div>
 
-              <button onClick={() => setOpen(false)}>
+              <button onClick={() => toggleSidebar()}>
                 <XMarkIcon className="w-6 h-6" />
               </button>
             </div>
@@ -82,12 +80,10 @@ export default function Sidebar({ menuItems }) {
                       color: theme.text.primary,
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background =
-                        theme.cardHover;
+                      e.currentTarget.style.background = theme.cardHover;
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background =
-                        "transparent";
+                      e.currentTarget.style.background = "transparent";
                     }}
                   >
                     <ListItemPrefix className="flex items-center justify-center">
@@ -109,6 +105,7 @@ export default function Sidebar({ menuItems }) {
       )}
 
       {/* Desktop Sidebar */}
+
       <aside
         className="hidden lg:flex flex-col w-64 h-screen"
         style={{
@@ -118,24 +115,27 @@ export default function Sidebar({ menuItems }) {
         }}
       >
         {/* Header */}
-        <div
-          className="p-5"
-          style={{
-            borderBottom: `1px solid ${theme.border}`,
-          }}
-        >
-          <h2 className="font-bold text-xl">
-            MF Analytics
-          </h2>
-
-          <p
-            className="text-sm"
+        <div className="flex justify-between">
+          <div
+            className="p-5"
             style={{
-              color: theme.text.secondary,
+              borderBottom: `1px solid ${theme.border}`,
             }}
           >
-            Portfolio Insights
-          </p>
+            <h2 className="font-bold text-xl">MF Analytics</h2>
+
+            <p
+              className="text-sm"
+              style={{
+                color: theme.text.secondary,
+              }}
+            >
+              Portfolio Insights
+            </p>
+          </div>
+          <div className="flex justify-center items-center">
+            <CustomizedSwitches />
+          </div>
         </div>
 
         {/* Menu */}
@@ -151,12 +151,10 @@ export default function Sidebar({ menuItems }) {
                   color: theme.text.primary,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background =
-                    theme.cardHover;
+                  e.currentTarget.style.background = theme.cardHover;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background =
-                    "transparent";
+                  e.currentTarget.style.background = "transparent";
                 }}
               >
                 <ListItemPrefix className="flex items-center justify-center">

@@ -3,6 +3,21 @@
 import { create } from "zustand";
 
 const useFundStore = create((set) => ({
+  isSidebarOpen: false,
+  isDarkMode: false,
+// BASEURL:String(process.env.BASEURL),
+  setSidebarOpen: (value) => set({ isSidebarOpen: value }),
+
+  toggleSidebar: () =>
+    set((state) => ({
+      isSidebarOpen: !state.isSidebarOpen,
+    })),
+  setDarkMode: (value) => set({ isDarkMode: value }),
+  toggleDarkMode: () =>
+    set((state) => ({
+      isDarkMode: !state.isDarkMode,
+    })),
+
   // Selected values
   selectedAmc: "",
   selectedScheme: "",
@@ -13,7 +28,7 @@ const useFundStore = create((set) => ({
   total_schemes: 0,
   new_entries: 0,
   total_exits: 0,
-total_market_value_in_lakh:0,
+  total_market_value_in_lakh: 0,
   // Dropdown data
   amcs: [],
   schemes: [],
@@ -43,7 +58,6 @@ total_market_value_in_lakh:0,
       set({
         amcs: data.rows || [],
       });
-
     } catch (error) {
       console.error(error);
     }
@@ -60,10 +74,10 @@ total_market_value_in_lakh:0,
 
       set({
         schemes: data || [],
-         total_schemes: data?.length || 0,
+        total_schemes: data?.length || 0,
       });
-  
-    //   total_schemes= schemes?.length || 0
+
+      //   total_schemes= schemes?.length || 0
     } catch (error) {
       console.error(error);
     }
@@ -102,33 +116,33 @@ total_market_value_in_lakh:0,
         sectorAllocation,
         monthlyTrend,
       ] = await Promise.all([
-        fetch(`/api/v1/schemes/${schemeId}/dashboard/schemes`).then((r) =>
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/dashboard/schemes`).then((r) =>
+          r.json(),
+        ),
+// api/v1/schemes/5509/dashboard/schemes
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-holdings`).then((r) => r.json()),
+
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-increases`).then((r) =>
           r.json(),
         ),
 
-        fetch(`/api/v1/schemes/${schemeId}/top-holdings`).then((r) => r.json()),
-
-        fetch(`/api/v1/schemes/${schemeId}/top-increases`).then((r) =>
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-reduction`).then((r) =>
           r.json(),
         ),
 
-        fetch(`/api/v1/schemes/${schemeId}/top-reduction`).then((r) =>
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/new-entries`).then((r) => r.json()),
+
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/fully-exits`).then((r) => r.json()),
+
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/sector-wise-allocation`).then((r) =>
           r.json(),
         ),
 
-        fetch(`/api/v1/schemes/${schemeId}/new-entries`).then((r) => r.json()),
-
-        fetch(`/api/v1/schemes/${schemeId}/fully-exits`).then((r) => r.json()),
-
-        fetch(`/api/v1/schemes/${schemeId}/sector-wise-allocation`).then((r) =>
-          r.json(),
-        ),
-
-        fetch(`/api/v1/schemes/${schemeId}/monthly-trend`).then((r) =>
+        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/monthly-trend`).then((r) =>
           r.json(),
         ),
       ]);
-   
+
       set({
         dashboard,
         topHoldings,
@@ -143,11 +157,13 @@ total_market_value_in_lakh:0,
         total_holding: topHoldings?.length || 0,
         new_entries: newEntries?.length || 0,
         total_exits: exits?.length || 0,
-        
-        total_market_value: Math.round(sectorAllocation.reduce(
-          (sum, item) => sum + Number(item.total_market_value || 0),
-          0,
-        )/100),
+
+        total_market_value: Math.round(
+          sectorAllocation.reduce(
+            (sum, item) => sum + Number(item.total_market_value || 0),
+            0,
+          ) / 100,
+        ),
         // total_market_value : total_market_value_in_lakh/100,
 
         loading: false,
@@ -161,6 +177,11 @@ total_market_value_in_lakh:0,
         error: "Failed to load dashboard data",
       });
     }
+  },
+  setToggle: (toggle) => {
+    set({
+      toggle: !toggle || false,
+    });
   },
 }));
 

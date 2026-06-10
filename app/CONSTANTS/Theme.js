@@ -1,3 +1,6 @@
+// import useFundStore from "@/app/store/useFundStore";
+// const { isDarkMode, toggleDarkMode } = useFundStore();
+
 export const colors = {
   common: {
     success: "#22C55E",
@@ -94,6 +97,6 @@ export const colors = {
   },
 };
 
-export const getTheme = (isDark = false) => {
+export const getTheme = (isDark) => {
   return isDark ? colors.dark : colors.light;
 };

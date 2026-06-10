@@ -6,10 +6,9 @@ import useFundStore from "@/app/store/useFundStore";
 import { useEffect } from "react";
 
 export default function Filter() {
-    const theme = getTheme(true);
   const loadAmcs = useFundStore((state) => state.loadAmcs);
   const loadSchemes = useFundStore((state) => state.loadSchemes);
-
+  
   //  const [selectedAmc,setSelectedAmc]=useState("select amc");
   useEffect(() => {
     loadAmcs();
@@ -20,9 +19,10 @@ export default function Filter() {
     selectedAmc,
     selectedScheme,
     setSelectedAmc,
-    setSelectedScheme,
+    setSelectedScheme,isDarkMode
   } = useFundStore();
-
+  
+  const theme = getTheme(isDarkMode);
   const handleAmcChange = async (e) => {
     const amcId = e.target.value;
 
@@ -49,7 +49,8 @@ const schemeOptions = schemes.map((scheme) => ({
         justify-between
         items-start md:items-center
         gap-4
-        py-5
+        md:py-5
+        py-3
         border-b
       "
     >

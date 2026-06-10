@@ -4,7 +4,6 @@ import KpiCard from "../components/common/KpiCard";
 
 import { Wallet, IndianRupee, PlusCircle, MinusCircle } from "lucide-react";
 
-import { getTheme } from "@/app/CONSTANTS/Theme";
 
 import "swiper/css";
 // import 'swiper/css';
@@ -12,10 +11,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import useFundStore from "@/app/store/useFundStore";
-export default function KpiSection() {
-  const theme = getTheme(true);
-
+export default function KpiSection({theme}) {
+  
   const {
+  
     total_holding,
     total_schemes,
     new_entries,
@@ -23,6 +22,7 @@ export default function KpiSection() {
     total_exits,
   } = useFundStore();
   
+ 
   const cards = [
     {
       title: "Total Holdings",
@@ -83,7 +83,7 @@ export default function KpiSection() {
         </div> */}
       {/* </div> */}
       {/* DESKTOP GRID */}
-      <div className=" grid grid-cols-2  xl:grid-cols-5 gap-5 md:gap-3 ">
+      <div className=" grid grid-cols-2 xl:grid-cols-5 gap-5 md:gap-3 ">
         {cards.map((card) => (
           <KpiCard key={card.title} {...card} theme={theme} />
         ))}
