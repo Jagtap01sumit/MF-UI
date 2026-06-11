@@ -6,49 +6,33 @@ import useFundStore from "@/app/store/useFundStore";
 import { FIELDS } from "@/app/CONSTANTS/Fields";
 
 export default function TablesSection() {
-  const {
-    topHoldings,
-    topIncreases,
-    topReductions,
-  } = useFundStore();
-
+  const { topHoldings, topIncreases, topReductions, newEntries, exits } =
+    useFundStore();
+  console.log(topIncreases);
   const holdingsData = topHoldings.map((item) => ({
     stock_name: item[FIELDS.STOCK_NAME],
-    quantity: Number(item.quantity).toLocaleString(),
-    market_value: `${Math.round(
-      Number(item[FIELDS.MARKET_VALUE]) / 100
-    )} Cr`,
+    quantity: Number(item[FIELDS.QUANTITY]).toLocaleString(),
+    market_value: `${Math.round(Number(item[FIELDS.MARKET_VALUE]) / 100)} Cr`,
+  }));
+  const exitsData = exits.map((item) => ({
+    stock_name: item[FIELDS.STOCK_NAME],
+    quantity: Number(item[FIELDS.QUANTITY_EXITED]).toLocaleString(),
+    market_value: `${Math.round(Number(item[FIELDS.MARKET_VALUE]) / 100)} Cr`,
   }));
 
   const increasesData = topIncreases.map((item) => ({
     stock_name: item[FIELDS.STOCK_NAME],
-    change_quantity: `+${Number(
-      item.quantity_change
-    ).toLocaleString()}`,
+    change_quantity: `+${Number(item.quantity_change).toLocaleString()}`,
   }));
-
+  const newEntriesData = newEntries.map((item) => ({
+    stock_name: item[FIELDS.STOCK_NAME],
+    quantity: Number(item[FIELDS.QUANTITY]).toLocaleString(),
+    market_value: `${Math.round(Number(item[FIELDS.MARKET_VALUE]) / 100)} Cr`,
+  }));
   const reductionsData = topReductions.map((item) => ({
     stock_name: item[FIELDS.STOCK_NAME],
-    change_quantity: Number(
-      item.quantity_change
-    ).toLocaleString(),
+    change_quantity: Number(item.quantity_change).toLocaleString(),
   }));
-
-  const TOP_HOLDINGS_COLUMNS = [
-    {
-      key: "stock_name",
-      label: "Stock",
-    },
-    {
-      key: "quantity",
-      label: "Qty",
-    },
-    {
-      key: "market_value",
-      label: "Value",
-    },
-  ];
-
   const TOP_INCREASE_COLUMNS = [
     {
       key: "stock_name",
@@ -56,7 +40,8 @@ export default function TablesSection() {
     },
     {
       key: "change_quantity",
-      label: "Added",
+      label: "Added (Qty)",
+      color: "#22c55e",
     },
   ];
 
@@ -67,10 +52,37 @@ export default function TablesSection() {
     },
     {
       key: "change_quantity",
-      label: "Reduced",
+      label: "Reduced (Qty)",
+      color: "#ef4444",
     },
   ];
 
+  const EXITS_COLUMNS = [
+    {
+      key: "stock_name",
+      label: "Stock",
+    },
+    {
+      key: "quantity",
+      label: "Qty",
+      color: "#ef4444",
+    },
+    {
+      key: "market_value",
+      label: "Value",
+      color: "#ef4444",
+    },
+  ];
+  const TOP_HOLDINGS_COLUMNS = [
+    { key: "stock_name", label: "Stock" },
+    { key: "quantity", label: "Qty" },
+    { key: "market_value", label: "Value (in Cr.)" },
+  ];
+  const NEW_ENTRIES_COLUMNS = [
+    { key: "stock_name", label: "Stock" },
+    { key: "quantity", label: "Qty" },
+    { key: "market_value", label: "Value (in Cr.)" },
+  ];
   const cards = [
     {
       title: "Top Holdings",
@@ -87,6 +99,16 @@ export default function TablesSection() {
       data: reductionsData,
       columns: TOP_REDUCTION_COLUMNS,
     },
+    {
+      title: "New Entries",
+      data: newEntriesData,
+      columns: NEW_ENTRIES_COLUMNS,
+    },
+    {
+      title: "EXITS",
+      data: exitsData,
+      columns: EXITS_COLUMNS,
+    },
   ].filter((card) => card.data.length > 0);
 
   if (cards.length === 0) {
@@ -99,22 +121,17 @@ export default function TablesSection() {
         cards.length === 1
           ? "grid-cols-1"
           : cards.length === 2
-          ? "grid-cols-1 lg:grid-cols-2"
-          : "grid-cols-1 lg:grid-cols-3"
+            ? "grid-cols-1 lg:grid-cols-2"
+            : "grid-cols-1 lg:grid-cols-3"
       } items-stretch`}
     >
       {cards.map((card) => (
-        <div
-          key={card.title}
-          className="h-full"
-        >
+        <div key={card.title} className="h-full">
           <DataTableCard
             title={card.title}
             columns={card.columns}
             data={card.data}
-            onViewMore={() =>
-              console.log(card.title)
-            }
+            onViewMore={() => console.log(card.title)}
           />
         </div>
       ))}

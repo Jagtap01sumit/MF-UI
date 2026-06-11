@@ -4,7 +4,7 @@ import { sidebarItems } from "@/app/config/Sidebar";
 import Filter from "@/app/sections/Filter";
 import Header from "@/app/sections/Header";
 import useTheme from "@/app/hook/useTheme";
-import TablesSection from "@/app/sections/TablesSection";
+
 import Dashboard from "@/app/sections/Dashboard";
 import useFundStore from "@/app/store/useFundStore";
 export default function Home() {
@@ -27,7 +27,7 @@ export default function Home() {
         <Filter />
 
        <Dashboard theme={theme}/>
-       <TablesSection/>
+       {/* <TablesSection/> */}
       </main>
     </div>
   );

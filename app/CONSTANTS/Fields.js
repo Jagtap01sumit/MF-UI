@@ -32,4 +32,8 @@ export const FIELDS = {
   TOTAL_MARKET_VALUE: "total_market_value",
   REPORT_MONTH: "report_month",
   PORTFOLIO_CREATED_AT:'created_at',
+
+  MARKET_VALUE:"market_value",
+  QUANTITY_EXITED:"quantity_exited"
+
 };

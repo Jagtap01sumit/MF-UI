@@ -27,3 +27,4 @@ export default function ChartCard({ title, children, theme }) {
     </div>
   );
 }
+

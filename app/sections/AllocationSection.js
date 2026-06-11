@@ -9,12 +9,10 @@ import useFundStore from "@/app/store/useFundStore";
 export default function AllocationSection({theme}) {
   const { sectorAllocation, monthlyTrend } = useFundStore();
  
-
-  const trendsData = monthlyTrend.map((item) => ({
-    month: item[FIELDS.REPORT_MONTH]?.substring(5, 10),
-    value: Number(item[FIELDS.TOTAL_MARKET_VALUE]),
-  }));
-
+const trendsData = monthlyTrend.map((item) => ({
+  x: new Date(item[FIELDS.REPORT_MONTH].substring(0, 10)).getTime(),
+  y: Number(item[FIELDS.TOTAL_MARKET_VALUE]),
+}));
   const COLORS = [
     "#8B5CF6",
     "#3B82F6",
