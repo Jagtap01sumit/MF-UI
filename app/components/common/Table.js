@@ -65,7 +65,6 @@ export default function DataTableCard({
             {title}
           </Typography>
 
-          {/* Mobile */}
           <Button
             size="small"
             onClick={onViewMore}
@@ -101,7 +100,9 @@ export default function DataTableCard({
                   <TableCell
                     key={col.key}
                     sx={{
-                      color: theme.text.primary,
+                      color:
+                        col.color || theme.text.primary,
+                      fontWeight: col.color ? 600 : 400,
                       borderBottom: `1px solid ${theme.border}`,
                     }}
                   >
@@ -112,8 +113,6 @@ export default function DataTableCard({
             ))}
           </TableBody>
         </Table>
-
-   
       </CardContent>
     </Card>
   );
