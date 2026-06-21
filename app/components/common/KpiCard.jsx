@@ -1,13 +1,16 @@
 "use client";
-
+import AnimatedNumbers from "react-animated-numbers";
 export default function KpiCard({
   title,
   value,
   icon: Icon,
   color,
   theme,
+  prefix,
+  suffix,
   subtitle,
 }) {
+  const isNumber = typeof value === "number";
   return (
     <div
       className="
@@ -18,7 +21,7 @@ export default function KpiCard({
         transition-all duration-300
         hover:-translate-y-1
         cursor-pointer
-        flex flex-col md:flex-row
+        flex  md:flex-row
         md:justify-between
         gap-4
        flex-col-reverse
@@ -36,20 +39,25 @@ export default function KpiCard({
           style={{ color: theme.text.secondary }}
         >
           {title}
-        </p>
-
-        <h2
-          className="text-xl md:text-xl font-bold mt-2"
-          style={{ color: theme.text.primary }}
-        >
-          {value}
-        </h2>
-
+        </p>{" "}
+        <div>
+          {" "}
+          {prefix && <label className="text-lg md:text-lg font-bold mt-2" style={{ color: theme.text.primary }}>{prefix}</label>}
+        
+          <AnimatedNumbers
+            animateToNumber={value}
+            className="text-lg md:text-lg font-bold mt-2"
+            transitions={(index) => ({
+              type: "spring",
+              duration: index + 0.3,
+            })}
+            fontStyle={{ color: theme.text.primary }}
+          />
+          {suffix && <label className="text-lg md:text-lg font-bold mt-2" style={{ color: theme.text.primary}}>{suffix}</label>}
+        </div>
+      
         {subtitle && (
-          <p
-            className="text-sm mt-2"
-            style={{ color: theme.text.muted }}
-          >
+          <p className="text-sm mt-2" style={{ color: theme.text.muted }}>
             {subtitle}
           </p>
         )}
@@ -62,7 +70,7 @@ export default function KpiCard({
             flex items-center justify-center
             w-12 h-12 md:w-14 md:h-8
             rounded-xl
-            flex-shrink-0
+            shrink-0
             shadow-lg
             self-start md:self-start md:ml-auto
           "

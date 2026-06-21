@@ -7,8 +7,7 @@ import CustomizedSwitches from "@/app/components/common/Toggle";
 import useFundStore from "@/app/store/useFundStore";
 
 export default function Sidebar({ menuItems, theme }) {
-  const { isSidebarOpen, toggleSidebar } = useFundStore();
-
+  const { isSidebarOpen, toggleSidebar , activeMenu, setActiveMenu} = useFundStore();
   console.log(isSidebarOpen);
 
   return (
@@ -85,6 +84,8 @@ export default function Sidebar({ menuItems, theme }) {
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "transparent";
                     }}
+                   
+                    onClick={() => setActiveMenu(item.key)}
                   >
                     <ListItemPrefix className="flex items-center justify-center">
                       <Icon
@@ -156,6 +157,7 @@ export default function Sidebar({ menuItems, theme }) {
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "transparent";
                 }}
+                 onClick={() => setActiveMenu(item.key)}
               >
                 <ListItemPrefix className="flex items-center justify-center">
                   <Icon

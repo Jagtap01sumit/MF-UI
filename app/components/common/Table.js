@@ -53,7 +53,7 @@ export default function DataTableCard({
           flexDirection: "column",
         }}
       >
-        {/* Header */}
+      
         <div className="flex justify-between items-center mb-4">
           <Typography
             variant="h6"

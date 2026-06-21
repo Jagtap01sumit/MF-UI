@@ -33,7 +33,9 @@ export default function KpiSection({theme}) {
     },
     {
       title: "Market Value",
-      value: "≈ " + total_market_value + " Cr.",
+      prefix:"≈ ",
+      suffix:" Cr.",
+      value: total_market_value,
       icon: IndianRupee,
       color: theme.kpi.marketValue,
       subtitle: "Latest Month",
@@ -63,26 +65,6 @@ export default function KpiSection({theme}) {
 
   return (
     <>
-      {/* <div className="md:hidden w-screen overflow-x-hidden"> */}
-      {/* <div className="w-full p-3 ">
-          <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={2}
-            slidesPerView={1}
-            // navigation
-            // scrollbar={{ draggable: true }}
-            className="w-full"
-          >
-            {" "}
-            {cards.map((card) => (
-              <SwiperSlide key={card.title} {...card}>
-                <KpiCard key={card.title} {...card} theme={theme} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div> */}
-      {/* </div> */}
-      {/* DESKTOP GRID */}
       <div className=" grid grid-cols-2 xl:grid-cols-5 gap-5 md:gap-3 ">
         {cards.map((card) => (
           <KpiCard key={card.title} {...card} theme={theme} />
