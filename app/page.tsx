@@ -8,7 +8,7 @@ import HopHoldingSection from "@/app/sections/screens/HopHoldingSection";
 import TopIncreasesSection from "@/app/sections/screens/TopIncreasesSection"
 import TopReductionSection from "@/app/sections/screens/TopReductionSection";
 import Setting from "@/app/sections/screens/Setting";
-import SectorAllocation from "@/app/sections/SectorAllocation";
+import SectorAllocation from "@/app/sections/screens/SectorAllocation";
 import Dashboard from "@/app/sections/Dashboard";
 import useFundStore from "@/app/store/useFundStore";
 export default function Home() {
