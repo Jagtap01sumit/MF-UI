@@ -4,14 +4,21 @@ import { create } from "zustand";
 
 const useFundStore = create((set) => ({
   isSidebarOpen: false,
+  activeMenu: "dashboard",
   isDarkMode: true,
-// BASEURL:String(process.env.BASEURL),
-  setSidebarOpen: (value) => set({ isSidebarOpen: value }),
+  // BASEURL:String(process.env.BASEURL),
 
   toggleSidebar: () =>
     set((state) => ({
       isSidebarOpen: !state.isSidebarOpen,
     })),
+
+  setActiveMenu: (menu) =>
+    set({
+      activeMenu: menu,
+      isSidebarOpen: false, // close mobile sidebar after selection
+    }),
+
   setDarkMode: (value) => set({ isDarkMode: value }),
   toggleDarkMode: () =>
     set((state) => ({
@@ -116,31 +123,37 @@ const useFundStore = create((set) => ({
         sectorAllocation,
         monthlyTrend,
       ] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/dashboard/schemes`).then((r) =>
-          r.json(),
-        ),
-// api/v1/schemes/5509/dashboard/schemes
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-holdings`).then((r) => r.json()),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/dashboard/schemes`,
+        ).then((r) => r.json()),
+        // api/v1/schemes/5509/dashboard/schemes
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-holdings`,
+        ).then((r) => r.json()),
 
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-increases`).then((r) =>
-          r.json(),
-        ),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-increases`,
+        ).then((r) => r.json()),
 
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-reduction`).then((r) =>
-          r.json(),
-        ),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/top-reduction`,
+        ).then((r) => r.json()),
 
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/new-entries`).then((r) => r.json()),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/new-entries`,
+        ).then((r) => r.json()),
 
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/fully-exits`).then((r) => r.json()),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/fully-exits`,
+        ).then((r) => r.json()),
 
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/sector-wise-allocation`).then((r) =>
-          r.json(),
-        ),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/sector-wise-allocation`,
+        ).then((r) => r.json()),
 
-        fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/monthly-trend`).then((r) =>
-          r.json(),
-        ),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/monthly-trend`,
+        ).then((r) => r.json()),
       ]);
 
       set({
