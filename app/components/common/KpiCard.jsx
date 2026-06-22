@@ -10,7 +10,7 @@ export default function KpiCard({
   suffix,
   subtitle,
 }) {
-  const isNumber = typeof value === "number";
+
   return (
     <div
       className="
