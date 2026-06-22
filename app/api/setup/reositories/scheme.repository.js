@@ -23,8 +23,7 @@ WHERE
 	)
 ORDER BY
 	P.MARKET_VALUE DESC
-LIMIT
-	10;
+
     `,
     [schemeId]
   );
@@ -71,7 +70,7 @@ WHERE c.scheme_id = $1
     AND p.report_month = m.previous_month
     AND c.quantity > p.quantity
 ORDER BY quantity_change DESC
-LIMIT 10;
+
     `,
     [schemeId]
   );
