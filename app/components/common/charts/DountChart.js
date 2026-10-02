@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 export default function SectorDonutChart({ data, theme }) {
   return (
@@ -19,15 +13,13 @@ export default function SectorDonutChart({ data, theme }) {
               data={data}
               dataKey="value"
               nameKey="name"
-              innerRadius={50}
-              outerRadius={80}
+              innerRadius={65}
+              outerRadius={105}
               paddingAngle={3}
+              stroke="none"
             >
               {data.map((entry, index) => (
-                <Cell
-                  key={index}
-                  fill={entry.color}
-                />
+                <Cell key={index} fill={entry.color} />
               ))}
             </Pie>
 

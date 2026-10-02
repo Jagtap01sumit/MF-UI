@@ -28,7 +28,7 @@ const useFundStore = create((set) => ({
   // Selected values
   selectedAmc: "",
   selectedScheme: "",
-
+  last_updated_date: "",
   // KPI Data
   total_holding: 0,
   total_market_value: 0,
@@ -122,6 +122,7 @@ const useFundStore = create((set) => ({
         exits,
         sectorAllocation,
         monthlyTrend,
+        last_updated_date,
       ] = await Promise.all([
         fetch(
           `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/dashboard/schemes`,
@@ -154,6 +155,9 @@ const useFundStore = create((set) => ({
         fetch(
           `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/monthly-trend`,
         ).then((r) => r.json()),
+        fetch(
+          `${process.env.NEXT_PUBLIC_BASEURL}/api/v1/schemes/${schemeId}/small_data`,
+        ).then((r) => r.json()),
       ]);
 
       set({
@@ -165,7 +169,7 @@ const useFundStore = create((set) => ({
         exits,
         sectorAllocation,
         monthlyTrend,
-
+        last_updated_date,
         // KPI Values
         total_holding: topHoldings?.length || 0,
         new_entries: newEntries?.length || 0,

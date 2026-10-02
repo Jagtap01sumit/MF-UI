@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className='h-10 w-full flex justify-between'>
         <div></div>
-        <div> < CustomizedSwitches/></div>
+        <div> <CustomizedSwitches/></div>
     </div>
   )
 }
