@@ -1,9 +1,21 @@
-import { fetchTopHoldings,fetchTopIncreases,fetchTopReduction,fetchNewEntries ,fetchFullyExitEntries,fetchSectorWiseAllocationEntries,fetchMonthlyTrendInScheme} from "../../setup/services/scheme.services";
+import { fetchTopHoldings,fetchTopIncreases,fetchTopReduction,fetchNewEntries ,fetchFullyExitEntries,fetchSectorWiseAllocationEntries,fetchMonthlyTrendInScheme, fetchLatestDate} from "../../setup/services/scheme.services";
 
 export async function GetTopHoldingsController(schemeId) {
   try {
     const data = await fetchTopHoldings(schemeId);
-
+console.log(data,"top holding controller")
+    return Response.json(data);
+  } catch (error) {
+    return Response.json(
+      { error: error.message },
+      { status: 500 }
+    );
+  }
+}
+export async function getLatestDate(schemeId){
+try {
+    const data = await fetchLatestDate(schemeId);
+console.log(data,"date")
     return Response.json(data);
   } catch (error) {
     return Response.json(

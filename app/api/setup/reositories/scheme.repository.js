@@ -2,7 +2,7 @@ import { pool } from "../../db/postgres";
 
 export async function getTopHoldingsForScheme(schemeId) {
   const result = await pool.query(
-   `SELECT
+    `SELECT
 	P.ID,
 	P.STOCK_ID,
 	S.STOCK_NAME,
@@ -25,15 +25,28 @@ ORDER BY
 	P.MARKET_VALUE DESC
 
     `,
-    [schemeId]
+    [schemeId],
   );
-
+  console.log(result, "result");
   return result.rows;
+}
+export async function getLatestDate(schemeId) {
+  const result = await pool.query(
+    `
+    SELECT MAX(report_month) AS latest_report_month
+    FROM portfolio
+    WHERE scheme_id = $1
+    `,
+    [schemeId],
+  );
+  const date = result.rows[0]?.latest_report_month;
+
+  return date ? String(date).substring(0, 10) : null;
 }
 
 export async function getTopIncreasesInScheme(schemeId) {
   const result = await pool.query(
-   `WITH ranked_months AS (
+    `WITH ranked_months AS (
     SELECT
         report_month,
         ROW_NUMBER() OVER (ORDER BY report_month DESC) AS rn
@@ -72,14 +85,14 @@ WHERE c.scheme_id = $1
 ORDER BY quantity_change DESC
 
     `,
-    [schemeId]
+    [schemeId],
   );
 
   return result.rows;
 }
 export async function getTopReductionInScheme(schemeId) {
   const result = await pool.query(
-   `WITH ranked_months AS (
+    `WITH ranked_months AS (
     SELECT
         report_month,
         ROW_NUMBER() OVER (ORDER BY report_month DESC) AS rn
@@ -118,7 +131,7 @@ WHERE c.scheme_id = $1
 ORDER BY quantity_change DESC
 LIMIT 10;
     `,
-    [schemeId]
+    [schemeId],
   );
 
   return result.rows;
@@ -126,7 +139,7 @@ LIMIT 10;
 
 export async function getNewEntriesInScheme(schemeId) {
   const result = await pool.query(
-   `
+    `
 WITH ranked_months AS (
     SELECT
         report_month,
@@ -166,7 +179,7 @@ WHERE c.scheme_id = $1
     )
 ORDER BY c.market_value DESC;;
     `,
-    [schemeId]
+    [schemeId],
   );
 
   return result.rows;
@@ -174,7 +187,7 @@ ORDER BY c.market_value DESC;;
 
 export async function getFullyExitsFromScheme(schemeId) {
   const result = await pool.query(
-   `WITH ranked_months AS (
+    `WITH ranked_months AS (
     SELECT
         report_month,
         ROW_NUMBER() OVER (ORDER BY report_month DESC) AS rn
@@ -216,14 +229,14 @@ WHERE p.scheme_id = $1
     )
 ORDER BY p.market_value DESC;
     `,
-    [schemeId]
+    [schemeId],
   );
 
   return result.rows;
 }
 export async function getSectorWiseAllocationInScheme(schemeId) {
   const result = await pool.query(
-   `SELECT
+    `SELECT
     s.industry_id,
     i.industry_name,
     ROUND(SUM(p.market_value), 2) AS total_market_value
@@ -243,7 +256,7 @@ GROUP BY
     i.industry_name
 ORDER BY total_market_value DESC;
     `,
-    [schemeId]
+    [schemeId],
   );
 
   return result.rows;
@@ -259,7 +272,7 @@ ORDER BY total_market_value DESC;
 //         SELECT DISTINCT report_month
 //         FROM portfolio
 //         WHERE scheme_id = $1
-//     ) 
+//     )
 // ),
 // month_data AS (
 //     SELECT
@@ -275,7 +288,7 @@ ORDER BY total_market_value DESC;
 //     0 AS current_quantity,
 //     p.quantity AS quantity_exited,
 //     p.market_value,
-    
+
 //     m.previous_month,
 //     m.current_month
 // FROM portfolio p
@@ -300,7 +313,7 @@ ORDER BY total_market_value DESC;
 // }
 export async function getMonthlyTrendInScheme(schemeId) {
   const result = await pool.query(
-   `
+    `
 
 WITH monthly_data AS (
     SELECT DISTINCT report_month
@@ -363,7 +376,7 @@ JOIN portfolio p
 GROUP BY mc.report_month, mc.previous_month
 ORDER BY mc.report_month;
     `,
-    [schemeId]
+    [schemeId],
   );
 
   return result.rows;

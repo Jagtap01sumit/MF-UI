@@ -1,4 +1,4 @@
-import { getTopHoldingsForScheme ,getTopIncreasesInScheme,getTopReductionInScheme,getNewEntriesInScheme,getFullyExitsFromScheme,getSectorWiseAllocationInScheme,getMonthlyTrendInScheme} from "../../setup/reositories/scheme.repository";
+import { getTopHoldingsForScheme,getLatestDate ,getTopIncreasesInScheme,getTopReductionInScheme,getNewEntriesInScheme,getFullyExitsFromScheme,getSectorWiseAllocationInScheme,getMonthlyTrendInScheme} from "../../setup/reositories/scheme.repository";
 
 export async function fetchTopHoldings(schemeId) {
   if (!schemeId) {
@@ -7,7 +7,12 @@ export async function fetchTopHoldings(schemeId) {
 
   return await getTopHoldingsForScheme(schemeId);
 }
-
+export async function fetchLatestDate(schemeId){
+  if(!schemeId){
+    console.log("there is not a scheme id")
+  }
+  return await getLatestDate(schemeId);
+}
 export async function fetchTopIncreases(schemeId) {
   if (!schemeId) {
     throw new Error("Scheme ID is required");

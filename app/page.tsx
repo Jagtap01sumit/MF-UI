@@ -22,7 +22,7 @@ export default function Home() {
 
       {/* Right scrollable section */}
       <main
-        className="flex-1 p-6 overflow-y-auto"
+        className="flex-1 p-6 md:pt-6 pt-10 overflow-y-auto"
         style={{
           background: theme.background,
         }}
@@ -31,7 +31,7 @@ export default function Home() {
         <Filter />
 
         <Dashboard theme={theme} /> */}
-        {!isSidebarOpen && <Header />}
+        {/* {!isSidebarOpen && <Header />} */}
         <Filter />
 
         {activeMenu === "dashboard" && <Dashboard theme={theme} />}

@@ -1,7 +1,19 @@
-import React from 'react'
+import React from "react";
+import Header from "../Header";
+import useFundStore from "@/app/store/useFundStore";
 
-export default function Setting({theme}) {
+export default function Setting({ theme }) {
+  const { isSidebarOpen, activeMenu } = useFundStore();
   return (
-    <div>Setting</div>
-  )
+    <>
+      <Header></Header>
+      <div
+        style={{
+          color: theme.text.primary,
+        }}
+      >
+        Coming soon....
+      </div>
+    </>
+  );
 }

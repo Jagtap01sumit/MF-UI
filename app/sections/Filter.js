@@ -17,6 +17,7 @@ export default function Filter() {
     amcs,
     schemes,
     selectedAmc,
+    last_updated_date,
     selectedScheme,
     setSelectedAmc,
     setSelectedScheme,isDarkMode
@@ -94,16 +95,15 @@ const schemeOptions = schemes.map((scheme) => ({
         </div>
       </div>
 
-      <div className="text-xs md:text-sm" style={{ color: theme.text.muted }}>
-        Last updated:
+      <div className="text-xs md:text-sm gap-2" style={{ color: theme.text.muted }}>
+        Last updated: 
         <span
           style={{
             color: theme.text.primary,
             fontWeight: 600,
           }}
         >
-          {" "}
-          31st March
+          {last_updated_date}
         </span>
       </div>
     </main>

@@ -139,32 +139,32 @@ export default function FullDataTable({
                   }}
                 >
                   <TableSortLabel
-  active={orderBy === column.key}
-  direction={orderBy === column.key ? order : "asc"}
-  onClick={() => handleSort(column.key)}
-  sx={{
-    color: `${theme.text.primary} !important`,
-    fontWeight: 700,
+                    active={orderBy === column.key}
+                    direction={orderBy === column.key ? order : "asc"}
+                    onClick={() => handleSort(column.key)}
+                    sx={{
+                      color: `${theme.text.primary} !important`,
+                      fontWeight: 700,
 
-    "&:hover": {
-      color: `${theme.text.primary} !important`,
-    },
+                      "&:hover": {
+                        color: `${theme.text.primary} !important`,
+                      },
 
-    "&.Mui-active": {
-      color: `${theme.text.primary} !important`,
-    },
+                      "&.Mui-active": {
+                        color: `${theme.text.primary} !important`,
+                      },
 
-    "& .MuiTableSortLabel-icon": {
-      color: `${theme.text.muted} !important`,
-    },
+                      "& .MuiTableSortLabel-icon": {
+                        color: `${theme.text.muted} !important`,
+                      },
 
-    "&.Mui-active .MuiTableSortLabel-icon": {
-      color: `${theme.primary} !important`,
-    },
-  }}
->
-  {column.label}
-</TableSortLabel>
+                      "&.Mui-active .MuiTableSortLabel-icon": {
+                        color: `${theme.primary} !important`,
+                      },
+                    }}
+                  >
+                    {column.label}
+                  </TableSortLabel>
                 </TableCell>
               ))}
             </TableRow>
@@ -225,42 +225,41 @@ export default function FullDataTable({
           setRowsPerPage(Number(e.target.value));
           setPage(0);
         }}
-          sx={{
-    color: theme.text.primary,
-    borderTop: `1px solid ${theme.border}`,
+        sx={{
+          color: theme.text.primary,
+          borderTop: `1px solid ${theme.border}`,
 
-    "& .MuiTablePagination-selectLabel": {
-      color: theme.text.secondary,
-    },
+          "& .MuiTablePagination-selectLabel": {
+            color: theme.text.secondary,
+          },
 
-    "& .MuiTablePagination-displayedRows": {
-      color: theme.text.secondary,
-    },
+          "& .MuiTablePagination-displayedRows": {
+            color: theme.text.secondary,
+          },
 
-    "& .MuiTablePagination-select": {
-      color: theme.text.primary,
-    },
+          "& .MuiTablePagination-select": {
+            color: theme.text.primary,
+          },
 
-    /* Dropdown arrow */
-    "& .MuiSelect-icon": {
-      color: theme.primary,
-    },
+          /* Dropdown arrow */
+          "& .MuiSelect-icon": {
+            color: theme.primary,
+          },
 
-    /* Pagination buttons */
-    "& .MuiIconButton-root": {
-      color: theme.primary,
-    },
+          /* Pagination buttons */
+          "& .MuiIconButton-root": {
+            color: theme.primary,
+          },
 
-    /* All SVG icons */
-    "& .MuiSvgIcon-root": {
-      color: theme.primary,
-    },
+          /* All SVG icons */
+          "& .MuiSvgIcon-root": {
+            color: theme.primary,
+          },
 
-    "& .Mui-disabled .MuiSvgIcon-root": {
-      color: theme.text.muted,
-    },
-  }}
-        
+          "& .Mui-disabled .MuiSvgIcon-root": {
+            color: theme.text.muted,
+          },
+        }}
       />
     </Paper>
   );
